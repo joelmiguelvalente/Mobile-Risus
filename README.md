@@ -7,6 +7,10 @@
 * 5 - En su cpanel crean un subdominio para la versión móvil
 * 6 - y por el momento es todo
 
+### Falta:
+* Actualizar a Jquery 3.4.1
+* Actualizar a Recaptcha v2 o v3
+
 ---
 ## Solo si tienen el Smarty actualizado
 Buscan en **header.php**:
