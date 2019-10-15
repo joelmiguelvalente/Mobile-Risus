@@ -1,0 +1,149 @@
+* {
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+body {
+	font-family: 'Quicksand', sans-serif;
+}
+header {
+	background-color: #2564BA;
+	height: 150px;
+	padding-bottom: 50px;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+}
+header h2 {
+	text-transform: uppercase;
+	color: #EEE;
+	letter-spacing: 2px;
+	font-weight: 700;
+}
+main {
+	margin-top: -60px;
+}
+main .container {
+	background-color: #FFF;
+	width: 80%;
+	margin: 0 auto;
+	box-shadow: 0 0 10px rgba(0,0,0,.5);
+	padding: 10px 10px 20px 10px;
+}
+main .container h3,
+main .container h4 {
+	display: block;
+	padding: 6px;
+}
+main .container h4 {
+	background-color: #EEE;
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 10px;
+}
+main .container ul {
+	margin-left: 30px;
+	font-size: 14px;
+}
+main .container ul li {
+	padding: 5px;
+}
+main .container ul li.red {
+	font-weight: 700;
+	color: darkred;
+}
+main .container span {
+	display: block;
+	margin-left: 10px;
+}
+footer {
+	text-align: center;
+	padding: 20px;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: 700;
+}
+pre {
+    background: #333;
+    white-space: pre;
+    word-wrap: break-word;
+    overflow: auto;
+}
+pre.code {
+    margin: 10px 25px;
+    border-radius: 4px;
+    border: 1px solid #292929;
+    position: relative;
+}
+pre.code label {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    color: #ddd;
+    position: absolute;
+    left: 1px;
+    top: 15px;
+    text-align: center;
+    width: 60px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    pointer-events: none;
+}
+pre.code code {
+    font-family: "Inconsolata","Monaco","Consolas","Andale Mono","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+    display: block;
+    margin: 0 0 0 60px;
+    padding: 15px 16px 14px;
+    border-left: 1px solid #555;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 19px;
+    color: #ddd;
+}
+pre:hover::after {
+    opacity: 0;
+    visibility: visible;
+}
+pre.code-css code {
+   color: #91a7ff;
+}
+pre.code-sql code {
+   color: #53F9BC;
+}
+pre.code-html code {
+   color: #aed581;
+}
+pre.code-javascript code {
+   color: #ffa726;
+}
+pre.code-jquery code {
+   color: #4dd0e1;
+}
+pre.code-php code {
+   color: #F12C5A;
+}
+a.btn {
+	display: inline-block;
+	padding: 8px 12px;
+	text-decoration: none;
+	background-color: #2564BA;
+	color: #EEE;
+	border-radius: 5px;
+	margin: 10px;
+	font-weight: 700;
+}
+a.btn.back {
+	float: right;
+}
