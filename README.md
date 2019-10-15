@@ -1,11 +1,11 @@
 # Mobile-Risus
 
-1 - Descargan el MOD
-2 - Crean una carpeta en la raíz llamada **m** u otro nombre que deseen
-3 - Descomprimen el MOD dentro de la carpeta creada
-4 - En configuración asignan la url *https://m.laweb.com/*
-5 - En su cpanel crean un subdominio para la versión móvil
-6 - y por el momento es todo
+* 1 - Descargan el MOD
+* 2 - Crean una carpeta en la raíz llamada **m** u otro nombre que deseen
+* 3 - Descomprimen el MOD dentro de la carpeta creada
+* 4 - En configuración asignan la url *https://m.laweb.com/*
+* 5 - En su cpanel crean un subdominio para la versión móvil
+* 6 - y por el momento es todo
 
 ---
 ## Solo si tienen el Smarty actualizado
