@@ -17,30 +17,16 @@ class tsSmarty extends Smarty
   
   
   
-  function tsSmarty()
+  function __construct()
   {
     global $tsCore;
     //
-    $this->template_dir = TS_ROOT.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.'default'.DIRECTORY_SEPARATOR.'templates';
-    $this->compile_dir = TS_ROOT.DIRECTORY_SEPARATOR.'cache'; 
+    $this->template_dir = TS_ROOT.DIRECTORY_SEPARATOR.'themes'.DIRECTORY_SEPARATOR.TS_TEMA.DIRECTORY_SEPARATOR.'templates';
+    $this->compile_dir = TS_SEC.DIRECTORY_SEPARATOR.'cache'; 
     $this->template_cb = array('url' => $tsCore->settings['url'], 'title' => $tsCore->settings['titulo']);
     //
     $this->_tpl_hooks = array();
   }
-  
-  
-  
-  public static function &getInstance()
-  {
-    static $instance;
-    
-    if( is_null($instance) )
-    {
-      $instance = new tsSmarty();
-    }
-    
-    return $instance;
-  } 
   
   function assign_hook($hook, $include)
   {
