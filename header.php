@@ -82,7 +82,7 @@
     include TS_CLASS.'c.mensajes.php';
     
     // Smarty
-    include TS_SEC.'/inc/smarty/SmartyBC.class.php';
+    include TS_CLASS.'c.smarty.php';
     
     // Crean requests
     include TS_EXTRA.'QueryString.php';
@@ -117,7 +117,7 @@
     define('TS_TEMA', $tsTema);
 	
     // Smarty
-    $smarty = new SmartyBC();
+    $smarty = new tsSmarty();
 
 /*
  * -------------------------------------------------------------------
