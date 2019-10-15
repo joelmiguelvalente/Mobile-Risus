@@ -13,7 +13,7 @@
 
 ---
 ## Solo si tienen el Smarty actualizado
-Buscan en **header.php**:
+Buscan en Raíz/m/**header.php**:
 ``` PHP
 include TS_CLASS.'c.smarty.php';
 ```
@@ -41,7 +41,7 @@ include TS_SEC.'/inc/class/c.smarty.php';
 ```
 Más abajo buscan
 ``` PHP
-$smarty = new tsSmarty();
+$smarty = new SmartyBC();
 ```
 Y reemplazan por
 ``` PHP
