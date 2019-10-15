@@ -12,7 +12,7 @@
 * Actualizar a Recaptcha v2 o v3
 
 ---
-## Solo si tienen el Smarty actualizado
+## Si han actualizado el Smarty
 Buscan en Raíz/m/**header.php**:
 ``` PHP
 include TS_CLASS.'c.smarty.php';
@@ -30,7 +30,7 @@ Y reemplazan por
 $smarty = new SmartyBC();
 ```
 ---
-## En el caso que **NO tengan el Smarty actualizado**
+## En el caso que volver a su versión original
 1) Buscan en **header.php**:
 ``` PHP
 include TS_SEC.'/inc/smarty/SmartyBC.class.php';
