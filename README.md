@@ -11,6 +11,9 @@
 * Actualizar a Jquery 3.4.1
 * Actualizar a Recaptcha v2 o v3
 
+## Realizar los pasos del 1 al 5
+https://www.phpost.net/foro/topic/27955-mod-risus-mobile-kmario19/
+
 ---
 ## Si han actualizado el Smarty
 Buscan en Raíz/m/**header.php**:
