@@ -13,7 +13,8 @@
 
 ## Realizar los pasos del 1 al 5
 https://www.phpost.net/foro/topic/27955-mod-risus-mobile-kmario19/
-En el **PASO 2** no agregaremos ya que lo moveremos
+
+En el **PASO 2** no agregaremos ya que lo moveremos, si ya lo tienes simplemente lo borras
 ``` PHP
  if($tsCore->settings['isMobile']) {
 echo '<div style="background: #B8DCFF;width: 100%;overflow: hidden;font-size: 15px;padding: 16px;color: #000;text-align: center;">Navega mejor por '.$tsCore->settings['titulo'].' en nuestra versión mobile <a class="mBtn btnOk" href="'.$tsCore->settings['mobile'].'" onclick="document.cookie = \'mobile=;expires=Thu, 01 Jan 1970 00:00:01 GMT;\'">Entrar</a></div>';
