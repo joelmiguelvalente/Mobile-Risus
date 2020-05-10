@@ -9,7 +9,7 @@
 
 ## Actualización: 14/10/2019
 * Compatible con Risus 1.3
-* ~~Ya no contiene el Smarty~
+* ~~Ya no contiene el Smarty
 * El caché se almacenará en la misma carpeta que el theme normal
 * PHP 7+
 * Cambio un poco el aspecto al menú
@@ -18,10 +18,10 @@
 * _Falta reparar el Registro_
 
 ## Actualización: 10/05/2020
-* Smarty 3.1.34-dev-7
+* Smarty **3.1.34-dev-7**
 * Cambio un poco el aspecto al menú
 * Actualización de JBBCode.
-* Actualización de jQuery 3.5.0.
+* Actualización de **jQuery 3.5.0**.
 * No se agregó ningún editor
 * Registro funcional y actualizado con Recaptcha v3
 
