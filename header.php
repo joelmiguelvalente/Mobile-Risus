@@ -46,6 +46,8 @@
     define('TS_EXTRA', TS_ROOT.'/inc/ext/');
 
     define('TS_FILES', TS_ROOT.'/files/');
+
+    define('TS_SMARTY', TS_ROOT.'/inc/smarty/');
     
     set_include_path(get_include_path() . PATH_SEPARATOR . realpath('./'));
 
@@ -60,8 +62,7 @@
     include TS_SEC . '/config.inc.php';
 
     // No ha sido instalado el script...
-    if($db['hostname'] == 'dbhost')
-        header("Location: ../../install/index.php");        
+    if($db['hostname'] == 'dbhost') header("Location: ../../install/index.php");        
         
     // Funciones
     include TS_EXTRA.'functions.php';
@@ -82,7 +83,7 @@
     include TS_CLASS.'c.mensajes.php';
     
     // Smarty
-    include TS_CLASS.'c.smarty.php';
+    include TS_SMARTY.'SmartyBC.class.php';
     
     // Crean requests
     include TS_EXTRA.'QueryString.php';
@@ -117,7 +118,7 @@
     define('TS_TEMA', $tsTema);
 	
     // Smarty
-    $smarty = new tsSmarty();
+    $smarty = new SmartyBC();
 
 /*
  * -------------------------------------------------------------------
@@ -139,19 +140,9 @@
     
     // Mensajes
     $smarty->assign('tsMPs',$tsMP->mensajes);
+
+    require 'mobile.php';
     
-    // Patch URL actual
-    $smarty->assign('tsUrlPatch', str_replace($tsCore->settings['url'], '', urldecode($tsCore->currentUrl())));
-    /* MODIFIER_KMG */
-    function smarty_modifier_kmg($number){
-       $pre = 'KMG';
-       if ($number >= 1000) {
-           for ($i=-1; $number>=1000; ++$i) {
-               $number /= 1000;
-           }
-           return round($number,1).$pre[$i];
-       } else return $number;
-    }
 /*
  * -------------------------------------------------------------------
  *  Validaciones extra

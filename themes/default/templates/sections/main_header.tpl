@@ -4,11 +4,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>{$tsTitle}</title>
-<link href="{$tsConfig.default}/estilo.min.css" rel="stylesheet" type="text/css" />
+<link href="{$tsConfig.default}/estilo.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="{$tsConfig.images}/favicon.ico" type="image/x-icon" />
 <script src="{$tsConfig.js}/jquery.min.js" type="text/javascript"></script>
 <script src="{$tsConfig.js}/jquery.plugins.js" type="text/javascript"></script>
-<script src="{$tsConfig.js}/acciones.min.js" type="text/javascript"></script>
+<script src="{$tsConfig.js}/acciones.js" type="text/javascript"></script>
 <script type="text/javascript">
 // {literal}
 var global_data={
@@ -39,7 +39,7 @@ var scrollContinue = true;
 	<div id="sidebar">
         <ul class="menu">
         	{if $tsUser->is_member}
-            <li class="{if $tsPage == 'perfil'}active{/if}"><a href="{$tsConfig.url}/perfil/{$tsUser->nick}"><img class="avatar" src="{$tsConfig.web}/files/avatar/{$tsUser->uid}_50.jpg">@{$tsUser->nick}</a></li>
+            <li class="usuario{if $tsPage == 'perfil'} active{/if}"><a href="{$tsConfig.url}/perfil/{$tsUser->nick}"><img class="avatar" src="{$tsConfig.web}/files/avatar/{$tsUser->uid}_50.jpg">@{$tsUser->nick}</a></li>
             <li class="{if $tsPage == 'monitor'}active{/if}"><a href="{$tsConfig.url}/monitor/"><i class="monitor"></i>Notificaciones{if $tsNots > 0}<span class="popup">{$tsNots}</span>{/if}</a></li>
             <li class="{if $tsPage == 'mensajes'}active{/if}"><a href="{$tsConfig.url}/mensajes/"><i class="mensajes"></i>Mensajes{if $tsMPs > 0}<span class="popup">{$tsMPs}</span>{/if}</a></li>
             <li class="{if $tsPage == 'favoritos'}active {/if}radius"><a href="{$tsConfig.url}/favoritos/"><i class="favoritos"></i>Favoritos</a></li>

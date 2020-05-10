@@ -46,12 +46,12 @@ if(isset($_GET['mobile'])) setcookie('mobile', $_GET['mobile'], time() + 86400);
 				<pre class='code code-php'><label>PHP</label><code>`mobile` = \'' . $c['mobile'] . '\',</code></pre>
 
 				<span><strong>5)</strong> En <strong>templates/admin_mods/m.admin_configs.tpl</strong> buscar:</span>
-				<pre class='code code-html'><label>HTML</label><code>&lt;dl>
-    &lt;dt>&lt;label for="ai_url">Direcci&oacute;n del sitio:&lt;/label>&lt;/dt>
-    &lt;dd>&lt;input type="text" id="ai_url" name="url" maxlength="32" value="{$tsConfig.url}" />&lt;/dd>
-&lt;/dl></code></pre>
+				<pre class='code code-html'><label>HTML</label><code>&lt;dl&gt;
+    &lt;dt&gt;&lt;label for="ai_url"&gt;Direcci&oacute;n del sitio:&lt;/label&gt;&lt;/dt&gt;
+    &lt;dd&gt;&lt;input type="text" id="ai_url" name="url" maxlength="32" value="{$tsConfig.url}" /&gt;&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
 				<span>Agregar debajo:</span>
-				<pre class='code code-html'><label>HTML</label><code>&lt;dl>
-    &lt;dt>&lt;label for="mobile">Direcci&oacute;n del sitio para m&oacute;viles:&lt;/label>&lt;/dt>
-    &lt;dd>&lt;input type="text" id="mobile" name="mobile" maxlength="40" value="{$tsConfig.mobile}" />&lt;/dd>
+				<pre class='code code-html'><label>HTML</label><code>&lt;dl&gt;
+    &lt;dt&gt;&lt;label for="mobile"&gt;Direcci&oacute;n del sitio para m&oacute;viles:&lt;/label&gt;&lt;/dt&gt;
+    &lt;dd&gt;&lt;input type="text" id="mobile" name="mobile" maxlength="40" value="{$tsConfig.mobile}" /&gt;&lt;/dd&gt;
 &lt;/dl></code></pre>

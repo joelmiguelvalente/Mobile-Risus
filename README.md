@@ -7,43 +7,37 @@
 * 5 - En su cpanel crean un subdominio para la versión móvil
 * 6 - y por el momento es todo
 
-### Falta:
-* Actualizar a Jquery 3.4.1
-* Actualizar a Recaptcha v2 o v3
+## Actualización: 14/10/2019
+* Compatible con Risus 1.3
+* ~~Ya no contiene el Smarty
+* El caché se almacenará en la misma carpeta que el theme normal
+* PHP 7+
+* Cambio un poco el aspecto al menú
+* Se agregó los bbcode [JBBCode].
+* No se agregó ningún editor
+* _Falta reparar el Registro_
+---
+## Actualización: 10/05/2020
+* Smarty 3.1.34-dev-7
+* Cambio un poco el aspecto al menú
+* Actualización de JBBCode.
+* Actualización de jQuery 3.5.0.
+* No se agregó ningún editor
+* Registro funcional y actualizado con Recaptcha v3
 
----
-## Si han actualizado el Smarty
-Buscan en Raíz/m/**header.php**:
-``` PHP
-include TS_CLASS.'c.smarty.php';
-```
-Y reemplazan por
-``` PHP
-include TS_SEC.'/inc/smarty/SmartyBC.class.php';
-```
-Más abajo buscan
-``` PHP
-$smarty = new tsSmarty();
-```
-Y reemplazan por
-``` PHP
-$smarty = new SmartyBC();
-```
----
-## En el caso que volver a su versión original
-1) Buscan en **header.php**:
-``` PHP
-include TS_SEC.'/inc/smarty/SmartyBC.class.php';
-```
-Y reemplazan por
-``` PHP
-include TS_SEC.'/inc/class/c.smarty.php';
-```
-Más abajo buscan
-``` PHP
-$smarty = new SmartyBC();
-```
-Y reemplazan por
-``` PHP
-$smarty = new tsSmarty();
-```
+### Archivo mobile.php
+Este contendrá algunas configuraciones para esta versión:
+* **date_default_timezone_set()** Ubicación geográfica
+* **setlocale()** Idioma del sitio
+* Plugins **nobbcode**, **kmg**, **number_format** y **ucfirst**
+
+### Registro
+Se a editado solo dejando los campos:
+* Nombre
+* Contraseña
+* Email
+* Sexo
+
+### Otros cambios:
+He tomado la liberta de modificar un poco el estilo para que 
+sea un poco más diferentes

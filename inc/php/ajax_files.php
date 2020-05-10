@@ -1,6 +1,7 @@
 <?php 
 /**
  * Controlador
+ * Actualizacion Realizada: Smarty 3
  *
  * @name    ajax_files.php
  * @author  PHPost Team
@@ -26,7 +27,6 @@
 
 /*++++++++ = ++++++++*/
 
-
 /**********************************\
 
 * (VARIABLES LOCALES ESTE ARCHIVO)	*
@@ -36,7 +36,7 @@
 	$action = htmlspecialchars($_GET['action']);
 	$action_type = explode('-',$action);
 	$action_type = $action_type[0];
-	
+
 /**********************************\
 
 *	(INSTRUCCIONES DE CODIGO)		*

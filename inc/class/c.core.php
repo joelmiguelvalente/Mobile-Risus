@@ -11,8 +11,7 @@ class tsCore {
 	var $settings;
    
 
-	function __construct()
-    {
+	function __construct() {
 		// CARGANDO CONFIGURACIONES
 		$this->settings = $this->getSettings();
 		$this->settings['web'] = $this->settings['url'];
@@ -23,26 +22,22 @@ class tsCore {
 		$this->settings['tema_web'] = $this->getTema();
 		$this->settings['images'] = $this->settings['default'].'/images';
 		$this->settings['js'] = $this->settings['default'].'/js';
-
-		if(isset($_GET['do'])) {
-	        if($_GET['do'] == 'portal' || $_GET['do'] == 'posts' || $_GET['do'] == 'home') $this->settings['news'] = $this->getNews();
-	    }
+		$this->settings['news'] = $this->getNews();
+	   
 	}
 	
 	/*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/	
 	/*
 		getSettings() :: CARGA DESDE LA DB LAS CONFIGURACIONES DEL SITIO
 	*/
-	function getSettings()
-    {
+	function getSettings() {
 		$query = db_exec(array(__FILE__, __LINE__), 'query', 'SELECT * FROM w_configuracion');
 		return db_exec('fetch_assoc', $query);
 	}
 	/*
 		getCategorias()
 	*/
-	function getCategorias()
-    {
+	function getCategorias() {
 		// CONSULTA
 		$query = db_exec(array(__FILE__, __LINE__), 'query', 'SELECT cid, c_orden, c_nombre, c_seo, c_img FROM p_categorias ORDER BY c_orden');
 		// GUARDAMOS
@@ -65,44 +60,24 @@ class tsCore {
 	/*
         getNews()
     */
-    function getNews()
-    {
-        //
-        $data = array();
+   function getNews() {
+      //
+      $data = array();
 		$query = db_exec(array(__FILE__, __LINE__), 'query', 'SELECT not_body FROM w_noticias WHERE not_active = \'1\' ORDER by RAND()');
 		while($row = db_exec('fetch_assoc', $query)){
-		  $row['not_body'] = $this->parseBBCode($row['not_body'],'news');
-          $data[] = $row;
+		  	$row['not_body'] = $this->parseBBCode($row['not_body'],'news');
+         $data[] = $row;
 		}
-        //
-        return $data;
-    }
-	/*
-	 * Sacar imagen del post
-	 * si hay mas de una imagenen, tomamos la 2 (casi siempre la 1 es de "bienvenido")
-	 */
-	function extraer_img($texto) {
-		// del tipo [img=imagen] o [img]imagen[/img]
-		preg_match_all('/(\[img(\=|\]))((http|https)?(\:\/\/)?([^\<\>[:space:]]+)\.(jpg|jpeg|png|gif))(\]|\[\/img\])/i', $texto, $imgs);
-		$total = count($imgs[3]);
-		// Sacamos la mejor imagen posible ._.
-		$img = (count($imgs[3]) > 1) ? $imgs[3][1] : !empty($imgs[3][0]) ? $imgs[3][0] : false;
-		if(empty($img)) $img = false;
-		//
-		return $img;
-	}
-    
-    // FUNCIÓN CONCRETA PARA CENSURAR
-	
-	function parseBadWords($c, $s = FALSE) 
-    {
-        $q = result_array(db_exec(array(__FILE__, __LINE__), 'query', 'SELECT word, swop, method, type FROM w_badwords '.($s == true ? '' : ' WHERE type = \'0\'')));
-        
-        foreach($q AS $badword) 
-        {
-        $c = str_ireplace((empty($badword['method']) ? $badword['word'] : $badword['word'].' '),($badword['type'] == 1 ? '<img class="qtip" title="'.$badword['word'].'" src="'.$badword['swop'].'" align="absmiddle"/>' : $badword['swop'].' '),$c);
-        }
-        return $c;
+      //
+      return $data;
+   }
+   // FUNCIÓN CONCRETA PARA CENSURAR
+   function parseBadWords($c, $s = FALSE) {
+      $q = result_array(db_exec(array(__FILE__, __LINE__), 'query', 'SELECT word, swop, method, type FROM w_badwords '.($s == true ? '' : ' WHERE type = \'0\'')));
+      foreach($q AS $badword) {
+      	$c = str_ireplace((empty($badword['method']) ? $badword['word'] : $badword['word'].' '),($badword['type'] == 1 ? '<img title="'.$badword['word'].'" src="'.$badword['swop'].'" />' : $badword['swop'].' '),$c);
+      }
+      return $c;
 	}        
 	
 	/*
@@ -118,7 +93,7 @@ class tsCore {
 			if($tsUser->is_member == 0) return true;
 			else {
 				if($msg) $mensaje = 'Esta pagina solo es vista por los visitantes.';
-				else $this->redirect('/');
+				else $this->redirectTo('/');
 			}
 		}
 		// SOLO MIEMBROS
@@ -126,7 +101,7 @@ class tsCore {
 			if($tsUser->is_member == 1) return true;
 			else {
 				if($msg) $mensaje = 'Para poder ver esta pagina debes iniciar sesi&oacute;n.';
-				else $this->redirect('/login/?r='.$this->currentUrl());
+				else $this->redirectTo('/login/?r='.$this->currentUrl());
 			}
 		}
 		// SOLO MODERADORES
@@ -134,7 +109,7 @@ class tsCore {
 			if($tsUser->is_admod || $tsUser->permisos['moacp']) return true;
 			else {
 				if($msg) $mensaje = 'Estas en un area restringida solo para moderadores.';
-				else $this->redirect('/login/?r='.$this->currentUrl());
+				else $this->redirectTo('/login/?r='.$this->currentUrl());
 			}
 		}
 		// SOLO ADMIN
@@ -142,7 +117,7 @@ class tsCore {
 			if($tsUser->is_admod == 1) return true;
 			else {
 				if($msg) $mensaje = 'Estas intentando algo no permitido.';
-				else $this->redirect('/login/?r='.$this->currentUrl());
+				else $this->redirectTo('/login/?r='.$this->currentUrl());
 			}
 		}
 		//
@@ -213,12 +188,11 @@ class tsCore {
 	/*
 		setSecure()
 	*/
-	public function setSecure($var, $xss = FALSE)
-    {
-        $var = db_exec('real_escape_string', function_exists('magic_quotes_gpc') ? stripslashes($var) : $var);
-     return $var;
-    }
-	
+	public function setSecure($var, $xss = FALSE) {
+      $var = db_exec('real_escape_string', function_exists('magic_quotes_gpc') ? stripslashes($var) : $var);
+      return $var;
+   }
+
     /*
         antiFlood()
     */
@@ -236,12 +210,9 @@ class tsCore {
             // TERMINAR O RETORNAR VALOR
             if($print) die($msg);
             else return $msg;
-        }
-        else {
+        } else {
             // ANTIFLOOD
-            if(empty($_SESSION['flood'][$type])) {
-                $_SESSION['flood'][$type] = time();
-            } else $_SESSION['flood'][$type] = $now;
+            $_SESSION['flood'][$type] = (empty($_SESSION['flood'][$type])) ? time() : $now;
             // TODO BIEN
             return true;
         }
@@ -362,49 +333,41 @@ class tsCore {
 		$fecha = $fecha; 
 		$ahora = time();
 		$tiempo = $ahora-$fecha; 
-		if($fecha <= 0){
-			return 'Nunca';
-		}
+		if($fecha <= 0) return 'Nunca';
 		elseif(round($tiempo / 31536000) <= 0){ 
 			if(round($tiempo / 2678400) <= 0){ 
-				 if(round($tiempo / 86400) <= 0){ 
-					 if(round($tiempo / 3600) <= 0){ 
+				if(round($tiempo / 86400) <= 0){ 
+					if(round($tiempo / 3600) <= 0){ 
 						if(round($tiempo / 60) <= 0){ 
 							if($tiempo <= 60){ $hace = 'instantes'; } 
 						} else  { 
 							$can = round($tiempo / 60); 
-							if($can <= 1) {    $word = 'minuto'; } else { $word = 'minutos'; } 
+							$word = ($can <= 1) ?  'minuto' : 'minutos'; 
 							$hace = $can. " ".$word; 
 						} 
 					} else { 
 						$can = round($tiempo / 3600); 
-						if($can <= 1) {    $word = 'hora'; } else {    $word = 'horas'; } 
+						$word = ($can <= 1) ?  'hora' : 'horas';
 						$hace = $can. " ".$word; 
 					} 
 				} else  { 
 					$can = round($tiempo / 86400); 
-					if($can <= 1) {    $word = 'd&iacute;a'; } else {    $word = 'd&iacute;as'; } 
+					$word = ($can <= 1) ? 'd&iacute;a' : 'd&iacute;as'; 
 					$hace = $can. " ".$word;
 				} 
 			} else  { 
 				$can = round($tiempo / 2678400);  
-				if($can <= 1) {    $word = 'mes'; } else { $word = 'meses'; } 
+				$word = ($can <= 1) ? 'mes' : 'meses'; 
 				$hace = $can. " ".$word; 
 			}
-		 }else  {
+		} else {
 			$can = round($tiempo / 31536000); 
-			if($can <= 1) {    $word = 'a&ntilde;o';} else { $word = 'a&ntilde;os'; } 
+			$word = ($can <= 1) ? 'a&ntilde;o' : 'a&ntilde;os'; 
 			$hace = $can. " ".$word; 
-		 }
-		 //
-		 if($show == true) return 'Hace '.$hace;
-		 else return $hace;
-	}
-	/*
-		Obtiene el navegador.
-	*/
-	function getUserAgent() {
-		return $_SERVER['HTTP_USER_AGENT'];
+		}
+		//
+		if($show == true) return 'Hace '.$hace;
+		else return $hace;
 	}
 	/*
 		getUrlContent($tsUrl)
@@ -413,7 +376,7 @@ class tsCore {
 	   // USAMOS CURL O FILE
 	   if(function_exists('curl_init')){
     		// User agent
-    		$useragent = $this->getUserAgent();
+    		$useragent = $_SERVER['HTTP_USER_AGENT'];
     		//Abrir conexion  
     		$ch = curl_init();  
     		curl_setopt($ch, CURLOPT_USERAGENT, $useragent);
@@ -453,6 +416,20 @@ class tsCore {
 		$values = implode(', ',$sets);
 		//
 		return $values;
-	}	
+	}
+	/*
+	 * Sacar imagen del post
+	 * si hay mas de una imagenen, tomamos la 2 (casi siempre la 1 es de "bienvenido")
+	 */
+	function extraer_img($texto) {
+      // del tipo [img=imagen] o [img=imagen]
+      preg_match_all('/(\[img(\=|\]))((http|https)?(\:\/\/)?([^\<\>[:space:]]+)\.(jpg|jpeg|png|gif))(\]|\[\/img\])/i', $texto, $imgs);
+      $total = count($imgs[3]);
+      // Sacamos la mejor imagen posible ._.
+      $img = (count($imgs[3]) > 1) ? $imgs[3][1] : $imgs[3][0];    
+      if(empty($img)) $img = false;
+      //
+      return $img;
+   }
 	
 }

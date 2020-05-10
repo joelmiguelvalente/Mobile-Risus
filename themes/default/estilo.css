@@ -1,5 +1,8 @@
 @font-face{
-   font-family: "Cocogoose";src: url(Cocogoose.otf);
+   font-family: "Cocogoose";
+   src: url(Cocogoose.otf);
+  font-style: normal;
+  font-display: block;
 }
 body {
 	background: #dbdbdb;
@@ -10,6 +13,9 @@ body {
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	font-size: 14px;
 	-webkit-appearance: none;
+}
+input {
+	border:none;
 }
 html, body, div, span, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, code, em, img, ins, small, strike, strong, ul, li, form, label, canvas, embed, footer, header {
 padding: 0;
@@ -90,43 +96,37 @@ hr {
 #brandday {
 position: relative;
 }
-#brandday.sidebar-visible #maincontainer, #brandday.sidebar-visible #footer {
-padding-left: 260px;
-}
+
 #maincontainer{
 height:auto; 
 margin:0 auto;
 position:relative;
-padding-top: 44px;
 box-sizing: border-box;
 }
 #contenido_principal{
-padding:0 12px;
+padding:0 22px;
 }
 .blanco {
 background: #FFF;
 overflow: hidden;	
 }
 header {
-background-color: #005c87;
-background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#006594),color-stop(100% #00557d));
-background-image: -webkit-linear-gradient(top,#006594 0,#00557d 100%);
-background-image: -moz-linear-gradient(top,#006594 0,#00557d 100%);
-background-image: -ms-linear-gradient(top,#006594 0,#00557d 100%);
-background-image: -o-linear-gradient(top,#006594 0,#00557d 100%);
-background-image: linear-gradient(top,#006594 0,#00557d 100%);
-height: 44px;
-overflow: hidden;
-position: fixed;
-z-index: 10;
-width: 100%;
+	background-color: #126b949e;
+	height: 44px;
+	overflow: hidden;
+	position: sticky;
+	top:0;
+	margin-top: 0;
+	z-index: 10;
+	width: 100%;
+backdrop-filter: blur(3px);
 }
 header a.menu_toggle {
-background: url(images/menu_toggle.png) no-repeat 50% 50%;
-height: 42px;
-width: 44px;
-display: block;
-float: left;
+	background: url(images/menu_toggle.png) no-repeat 50% 50%;
+	height: 42px;
+	width: 44px;
+	display: block;
+	float: left;
 }
 header a.menu_toggle .popup {
 float: left;
@@ -159,44 +159,43 @@ text-indent: -300000px;
 }
 #brandday.sidebar-visible #sidebar {
 left: 0;
+transition: left .4s ease-in-out;
 }
 #sidebar {
 position: fixed;
 width: 260px;
 left: -260px;
-margin-top: 44px;
-height: 100%;
+height: 100vh;
 z-index: 10;
+transition: left .4s ease-in-out;
 }
 .menu {
-background: #004160;
-padding: 10px;
+	background-color: #005c8721;
 height: 100%;
+backdrop-filter: blur(3px);
+padding: 12px 4px;
 }
 .menu li {
-background: #003750;
-border-top: 1px solid #004160;
-border-bottom: 1px solid #004160;
-padding: 20px 10px 18px 10px;
+background: #0037507a;
 }
+.menu li:hover,
 .menu li.active {
-background: #145f81;
+background: #0c3367;
 }
 .menu li.separator {
 background: transparent;
 padding: 0;
 border: 0;
-height: 5px;
+height: 6px;
 }
 .menu li a {
 background-position: 10px center;
 background-repeat: no-repeat;
 color: #fff;
 display: block;
-margin: -20px -10px -20px -10px;
-padding: 20px 10px 20px 10px;
 position: relative;
 font-size: 1.15em;	
+padding: 8px 10px;
 }
 .popup {
 background: #E43232;
@@ -219,22 +218,22 @@ float: right;
 top: 0;
 margin: -4px 5px 0 0;	
 }
-.menu li:first-child, .menu li.separator+li {
-border-top-left-radius: 10px;
-border-top-right-radius: 10px;
-}
-.menu li:last-child, .menu li.radius {
-border-bottom-left-radius: 10px;
-border-bottom-right-radius: 10px;
+
+.menu li.usuario a {
+	display:flex;
+	justify-content: flex-start;
+	-ms-align-items: center;
+	align-items: center;
 }
 .menu li .avatar {
+	float:left;
 display: block;
-float: left;
-width: 40px;
-height: 40px;
-margin: -14px 10px 0 -3px;
-padding: 2px;
-background: #fff;
+width: 28px;
+height: 28px;
+margin-right: 10px;
+border: 0;
+padding:0;
+box-shadow: 0 0 3px #0006;
 }
 .menu li a i {
 width: 24px;
@@ -420,31 +419,21 @@ text-align: center;
 text-shadow: 1px 1px 0 white;
 }
 .box {
-background: #f0f0f0;
-border: solid 1px #CCC;
-border-bottom-left-radius: 5px;
-border-bottom-right-radius: 5px;
-border-top-left-radius: 5px;
-border-top-right-radius: 5px;
-box-shadow: 0 1px 0 #B0B0B0;
+background: #f1f0f0;
 margin: 10px;
 overflow: hidden;
-padding: 15px 20px;
+padding: 20px;
 }
 .box .input-text {
-padding: 10px;
-border: solid 1px #CCC;
+padding: 12px 10px;
 background: white;
+box-shadow: 2px 2px 3px #0005;
 display: block;
 width: 100%;
 -webkit-box-sizing: border-box;
 -moz-box-sizing: border-box;
 -o-box-sizing: border-box;
 box-sizing: border-box;
-border-bottom-left-radius: 4px;
-border-bottom-right-radius: 4px;
-border-top-left-radius: 4px;
-border-top-right-radius: 4px;
 margin: 10px 0;
 color: #666;
 }
@@ -453,20 +442,12 @@ border-color: #FF8B8B!important;
 }
 .box input[type=submit], .btn_blue {
 background: #387ccf;
-background-image: linear-gradient(#53a8e6, #387ccf);
 font-weight: bold;
 color: white;
-border: solid 1px #205799;
-text-shadow: 0 -1px 1px #3275bc;
-border-top-color: #4082ad;
 display: block;
 float: right;
 padding: 10px;
-margin-top: 5px;
-border-bottom-left-radius: 4px;
-border-bottom-right-radius: 4px;
-border-top-left-radius: 4px;
-border-top-right-radius: 4px;
+margin-top: 8px;
 width: 100%;
 }
 .box label {
@@ -478,7 +459,10 @@ margin: 0 2px;
 background: url(images/arrow_down.png) no-repeat #FFF 95% 50%!important;
 }
 .controls {
-width: 100%;
+width: 90%;
+padding: 0 20px;
+text-align: center;
+margin: 10px auto;
 }
 .line_separator {
 background: #CCC;
@@ -1022,16 +1006,20 @@ width: auto;
 .modal {
 display: none;
 text-align: center;
-text-shadow: 1px 1px 0 white;
+padding: 30px 0;
+margin: 10px 20px;
+background-color: #FFF;
+border-radius: 6px;
 }
 .modal p {
-margin: 30px auto;
+	font-size: 16px;
 }
 .modal button {
 width: auto;
 float: initial;
 display: inline-block;
-padding: 5px 7px;
+padding: 5px 17px;
+margin-top: 10px;
 }
 blockquote {
 padding-left: 25px;
@@ -1319,4 +1307,20 @@ color: #888;
 .foto_desc {
 margin-top: 10px;
 text-align: justify;	
+}
+.welcomeToMySite h1 {
+	font-size: 2em;
+	text-align:center;
+	margin-bottom: 6px;
+	font-family: Cocogoose;
+}
+.welcomeToMySite p *, .welcomeToMySite p {
+	font-size: 18px;
+	line-height: 1.6em;
+}
+.welcomeToMySite .btn_blue {
+	text-align: center;
+	margin: 10px 50px;
+	position: relative;
+width:80%;
 }

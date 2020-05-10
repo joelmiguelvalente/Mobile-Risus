@@ -43,23 +43,7 @@ var registro = {
 			pass.removeClass('error');
 			this.error(false);
 			this.datos['password'] = vpass;
-		}
-		// Contrasena2
-		var pass2 = $('#password2');
-		var vpass2 = pass2.val();
-		if(empty(vpass2)) {
-			pass2.addClass('error').focus();
-			return this.error(false);
-		}
-		if(vpass !== vpass2) {
-			pass2.addClass('error').focus();
-			return this.error('Las contrase&ntilde;a deben ser iguales');
-		} else cont = true;		
-		if(cont) {
-			pass2.removeClass('error');
-			this.error(false);
-			this.datos['password2'] = vpass2;
-		}
+		}		
 		// Email
 		var email = $('#email');
 		var vemail = email.val();
@@ -80,28 +64,6 @@ var registro = {
 			this.error(false);
 			this.datos['email'] = vemail;
 		}
-		// Nacimiento
-		var dia = $('#dia');
-		var mes = $('#mes');
-		var anio = $('#anio');
-		if(empty(dia.val())) {
-			return dia.addClass('error').focus();
-		} else {
-			dia.removeClass('error');
-			this.datos['dia'] = dia.val();
-		}
-		if(empty(mes.val())) {
-			return mes.addClass('error').focus();
-		} else {
-			mes.removeClass('error');
-			this.datos['mes'] = mes.val();
-		}
-		if(empty(anio.val())) {
-			return anio.addClass('error').focus();
-		} else {
-			anio.removeClass('error');
-			this.datos['anio'] = anio.val();
-		}
 		// Sexo
 		var sexo = $('#sexo');
 		if(empty(sexo.val())) {
@@ -109,22 +71,6 @@ var registro = {
 		} else {
 			sexo.removeClass('error');
 			this.datos['sexo'] = sexo.val();
-		}
-		// Pais
-		var pais = $('#pais');
-		if(empty(pais.val())) {
-			return pais.addClass('error').focus();
-		} else {
-			pais.removeClass('error');
-			this.datos['pais'] = pais.val();
-		}
-		// Estado
-		var estado = $('#estado');
-		if(empty(estado.val())) {
-			return estado.addClass('error').focus();
-		} else {
-			estado.removeClass('error');
-			this.datos['estado'] = estado.val();
 		}
 		// Recaptcha
 		var captcha = $('.g-recaptcha');
@@ -153,39 +99,22 @@ var registro = {
 				r = h.split(':');
 				// reload captcha
 				if(r[0] != 1 || r[0] != 2) {
-					registro.datos['g-recaptcha-response'] = '';
-	            grecaptcha.reset();
+					h.substring(strpos(h, ':') + 2);
 				}
 				if(r[0] == '0') {
 					registro.error(r[1], true);
 				} else if(r[0] == 'recaptcha') {
 					registro.error('El c&oacute;digo del captcha es incorrecto');					
 				} else if(r[0] == '1' || r[0] == '2') {
-					modal.home(r[1]);
+					$('#registro').show().html(r[1]);
+					$('.welcomeToMySite').append('<a href="'+global_data.web+'" style="display:block;" class="btn_blue">Ver web</a>');
+					$('#load').hide();
 				} else {
 					registro.error(r[1], true);
 				}
 				$('#registro input[type="submit"]').removeAttr('disabled').removeClass('disabled');
 			}
 		})
-	},
-	geo: function(value) {
-		$.ajax({
-			type: 'GET',
-			url: global_data.url + '/registro-geo.php',
-			data: 'pais_code=' + value,
-			success: function(h){
-				switch(h.charAt(0)){
-					case '0': //Error
-						this.error(h.substring(3));
-						break;
-					case '1': //OK
-						$('#pais').removeClass('error');
-						$('#estado').html(h.substring(3)).focus();
-						break;
-				}
-			}
-		});
 	},
 	error: function(msj, foco) {
 		if(msj.length > 0) {

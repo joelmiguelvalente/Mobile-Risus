@@ -39,7 +39,7 @@ $URL = $tsCore->settings['url'] . '/install';
 				<h3>Actualizaci&oacute;n: 14/10/2019</h3>
 				<ul>
 					<li>Compatible con Risus 1.3</li>
-					<li>Ya no contiene el Smarty</li>
+					<li><s>Ya no contiene el Smarty</s></li>
 					<li>El caché se almacenará en la misma carpeta que el theme normal</li>
 					<li>PHP 7+</li>
 					<li>Cambio un poco el aspecto al menú</li>
@@ -47,15 +47,25 @@ $URL = $tsCore->settings['url'] . '/install';
 					<li>No se agregó ningún editor</li>
 					<li class="red">Falta reparar el Registro</li>
 				</ul>
-				<a class="btn" href="<?php echo $URL; ?>/upgrade">Ver procedimiento</a>
+			</p>
+			<hr>
+
+			<p>
+				<h3>Actualizaci&oacute;n: 10/05/2020</h3>
+				<ul>
+					<li>Smarty 3.1.34-dev-7</li>
+					<li>Cambio un poco el aspecto al menú</li>
+					<li>Actualización de JBBCode.</li>
+					<li>Actualización de jQuery 3.5.0.</li>
+					<li>No se agregó ningún editor</li>
+					<li>Registro funcional y actualizado </li>
+				</ul>
 			</p>
 		<?php  
 			} else if(isset($_GET['page']) && $_GET['page'] ==  'procedimiento') {
 				include 'procedimiento.php';
 
-			} else if(isset($_GET['page']) && $_GET['page'] ==  'upgrade') {
-				include 'upgrade.php';
-			} 
+			}
 		?>
 			
 		</div>

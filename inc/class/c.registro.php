@@ -45,13 +45,8 @@ class tsRegistro{
 			'user_nick' => $tsCore->parseBadWords($_POST['nick']),
 			'user_password' => $tsCore->parseBadWords($_POST['password']),
 			'user_email' => $_POST['email'],
-			'user_dia' => $_POST['dia'],
-			'user_mes' => $_POST['mes'],
-			'user_anio' => $_POST['anio'],
 			'user_sexo' => $_POST['sexo'] == 'f' ? '0' : 1,
-			'user_pais' => strtoupper($_POST['pais']),
-			'user_estado' => $_POST['estado'],
-			'user_terminos' => $_POST['terminos'],
+			//'user_terminos' => $_POST['terminos'],
 			'user_captcha' => $_POST['g-recaptcha-response'],
 			'user_registro' => time(),
 		);
@@ -71,9 +66,9 @@ class tsRegistro{
 				return $key_error.': '.$errors['default'];
 			}
 		}
-
+		
 		/** reCAPTCHA **/
-		$recaptcha = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $tsCore->settings['skey']. '&response=' . $tsData['user_captcha'] . '&remoteip=' . $tsCore->getIP();
+		$recaptcha = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $tsCore->settings['skey'] . '&response=' . $tsData['user_captcha'] . '&remoteip=' . $tsCore->getIP();
         // Obtener respuesta
         $response = file_get_contents($recaptcha);
         // Extraer resultado
@@ -86,23 +81,26 @@ class tsRegistro{
             return 'recaptcha: No hemos podido validar tu humanidad';
         }
 		
-        // COMPROBAR QUE EL NOMBRE DE USUARIO SEA V�LIDO
-        if( !preg_match("/^[a-zA-Z0-9_-]{4,16}$/", $tsData['user_nick']) ) {
-            die('nick: Nombre de usuario inv&aacute;lido');
-        }
+		// COMPROBAR QUE EL NOMBRE DE USUARIO SEA VÁLIDO
+		if (!preg_match("/^[a-zA-Z0-9_-]{4,16}$/", $tsData['user_nick'])) {
+			die('nick: Nombre de usuario inv&aacute;lido');
+		}
         
 		// COMPROBAR NUEVAMENTE QUE EL USUARIO O EMAIL NO SE ENCUENTREN REGISTRADOS
 		$query = db_exec(array(__FILE__, __LINE__), 'query', 'SELECT `user_name`,`user_email` FROM `u_miembros` WHERE LOWER(user_name) = \''.$tsCore->setSecure($tsData['user_nick']).'\' OR LOWER(user_email) = \''.$tsCore->setSecure($tsData['user_email']).'\' LIMIT 1');
 		if(db_exec('num_rows', $query) > 0 || !filter_var($tsData['user_email'], FILTER_VALIDATE_EMAIL) || $tsCore->settings['c_reg_active'] == 0) die('0: Hubo problemas al intentar registrarle, hay campos vac&iacute;os, inv&aacute;lidos o no se le permite el registro.');
+
+		$IPGlobal = file_get_contents("http://www.geoplugin.net/json.gp?ip=".$tsCore->getIP());
+		$DatosIP = json_decode($IPGlobal, true);
 		
 		// PASAMOS BIEN... AHORA INSERTAR DATOS
 		$key = md5(md5($tsData['user_password']).strtolower($tsData['user_nick']));
 		//
 		if(db_exec(array(__FILE__, __LINE__), 'query', 'INSERT INTO `u_miembros` (`user_name`, `user_password`, `user_email`, `user_rango`, `user_registro`) VALUES (\''.$tsCore->setSecure($tsData['user_nick']).'\', \''.$tsCore->setSecure($key).'\', \''.$tsCore->setSecure($tsData['user_email']).'\', '.(empty($tsCore->settings['c_reg_rango']) ? 3 : $tsCore->settings['c_reg_rango']).', \''.$tsData['user_registro'].'\')')){
             $tsData['user_id'] = db_exec('insert_id');
-            // INSERTAMOS EL PERFIL
-			db_exec(array(__FILE__, __LINE__), 'query', 'INSERT INTO `u_perfil` (`user_id`, `user_dia`, `user_mes`, `user_ano`, `user_pais`, `user_estado`, `user_sexo`) VALUES (\''.(int)$tsData['user_id'].'\', \''.(int)$tsData['user_dia'].'\', \''.(int)$tsData['user_mes'].'\', \''.(int)$tsData['user_anio'].'\', \''.$tsCore->setSecure($tsData['user_pais']).'\', \''.$tsCore->setSecure($tsData['user_estado']).'\', \''.(int)$tsData['user_sexo'].'\')');
-            db_exec(array(__FILE__, __LINE__), 'query', 'INSERT INTO `u_portal` (`user_id`) VALUES (\''.$tsData['user_id'].'\')');
+         // INSERTAMOS EL PERFIL
+			db_exec(array(__FILE__, __LINE__), 'query', 'INSERT INTO `u_perfil` (`user_id`, `user_dia`, `user_mes`, `user_ano`, `user_pais`, `user_sexo`) VALUES (\'' . (int) $tsData['user_id'] . '\', \''.(int)date('d').'\', \''.(int)date('m').'\', \''.(int)date('Y',strtotime('18 years ago')).'\', \''.$tsCore->setSecure($DatosIP["geoplugin_countryCode"]).'\', \''.(int)$tsData['user_sexo'].'\')');
+			db_exec(array(__FILE__, __LINE__), 'query', 'INSERT INTO `u_portal` (`user_id`) VALUES (\'' . $tsData['user_id'] . '\')');
 			
 			// MENSAJE PARA DAR LA BIENVENIDA BIENVENIDA
 			$send_welcome = $tsCore->settings['c_met_welcome'];
@@ -133,7 +131,7 @@ class tsRegistro{
 			// ENVIAMOS EL EMAIL
 			if(empty($tsCore->settings['c_reg_activate'])){
 			
-			$key = substr(md5(time()),0,32); //La otra opci�n muestra m�s ceros de la cuenta e.e con un substr en el env�o tal vez se solucione.
+			$key = substr(md5(time()),0,32); //La otra opción muestra más ceros de la cuenta e.e con un substr en el envío tal vez se solucione.
 			
 			if(db_exec(array(__FILE__, __LINE__), 'query', 'INSERT INTO w_contacts (user_id, user_email, time, type, hash) VALUES (\''.(int)$tsData['user_id'].'\', \''.$tsCore->setSecure($tsData['user_email']).'\', \''.time().'\', \'2\', \''.$key.'\' )')){	
 			
@@ -174,7 +172,7 @@ class tsRegistro{
 			} else {
 				$tsUser->userActivate($tsData['user_id'],md5($tsData['user_registro']));
 				$tsUser->loginUser($tsData['user_nick'], $tsData['user_password'], true);
-				return '2: <div class="box_cuerpo" style="padding: 12px 20px; border-top:1px solid #CCC">Bienvenido a <b>'.$tsCore->settings['titulo'].'</b>, Ahora estas registrado y tu cuenta ha sido activada, podr&aacute;s disfrutar de esta comunidad inmediatamente.<br><br>&iexcl;Muchas gracias! :)</div>';
+				return '2: <div class="welcomeToMySite"><h1 class="text-center">🎉 Felicidades 🎉</h1><p>Ya eres parte de <b>'.$tsCore->settings['titulo'].'</b>! Ahora puedes disfrutar y compartir todo el contenido que existe en nuestra comunidad sin ninguna restricción, y tu cuenta ha sido activada.<br>¡Muchas gracias!</p></div>';			
 			}
 		} else return '0: Ocurrio un error, intentalo ma&aacute;s tarde.';
 	}
